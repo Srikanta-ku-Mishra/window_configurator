@@ -1,0 +1,18 @@
+{
+  "name": "new",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.8.0"
+  },
+  "dependencies": {
+    "@types/webgi": "https://dist.pixotronics.com/webgi/runtime/bundle-types-0.7.9.tgz",
+    "three": "^0.155.0",
+    "webgi": "https://dist.pixotronics.com/webgi/runtime/bundle-0.7.9.tgz"
+  }
+}

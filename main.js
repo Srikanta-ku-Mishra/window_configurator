@@ -274,7 +274,7 @@ const cloud = [
   "cloud.jpg",
 ];
 
-const path= "Images/textures/cube/Park2/"
+const path = "Images/textures/cube/Park2/";
 const park = [
   path + "posx.jpg",
   path + "negx.jpg",
@@ -283,7 +283,6 @@ const park = [
   path + "posz.jpg",
   path + "negz.jpg",
 ];
-
 
 //#region  Old codes
 
@@ -343,10 +342,10 @@ const textureCubecloud = new THREE.CubeTextureLoader().load(cloud);
 scene.background = textureCube;
 // scene.environment = textureCube;
 // scene.backgroundBlurriness = 0.2;
-const planePiece = new THREE.PlaneGeometry(5,5, 5, 5);
-scene.castShadow = true;
+const planePiece = new THREE.PlaneGeometry(5, 5, 5, 5);
+// scene.castShadow = true;
 const steelColor = 0x919293;
-const aluMiniumColr = 0xD3D3D3;
+const aluMiniumColr = 0xd3d3d3;
 const upvcColor = 0xffffff;
 
 let color = upvcColor;
@@ -357,9 +356,9 @@ window.addEventListener("keyup", (event) => {
   } else if (event.key === "u") {
     color = 0xffffff;
     addModel(color, false);
-  }else if (event.key === "a") {
+  } else if (event.key === "a") {
     //#C2C3C4
-    color = 0xC2C3C4;
+    color = 0xc2c3c4;
     addModel(color, true);
   }
 });
@@ -475,9 +474,7 @@ function addModel(color, isForSteel) {
               // debugger;
               for (let j = meshChild.children.length - 1; j >= 0; j--) {
                 const child = meshChild.children[j];
-                if (
-                  child.name.startsWith("boundaryLine")
-                ) {
+                if (child.name.startsWith("boundaryLine")) {
                   meshChild.remove(child);
                   child.dispatchEvent({ type: "delete" });
                 }
@@ -502,12 +499,12 @@ function addModel(color, isForSteel) {
                   roughness: 0.34,
                   metalness: 0.6,
                   envMap: textureCube,
-                  envMapIntensity : 0.1,
+                  envMapIntensity: 0.1,
                   // polygonOffset: true,
                   // polygonOffsetFactor: 0.5,
                   // polygonOffsetUnits: 1
                 });
-                newMat.needsUpdate = true
+                newMat.needsUpdate = true;
               }
               const text = new THREE.TextureLoader().load("wood4.jpg");
               // text.wrapS = THREE.MirroredRepeatWrapping
@@ -517,7 +514,7 @@ function addModel(color, isForSteel) {
               meshChild.castShadow = true;
               // meshChild.receiveShadow = true;
               meshChild.material = newMat;
-              meshChild.material.needsUpdate = true
+              meshChild.material.needsUpdate = true;
             }
           }
         }
@@ -554,12 +551,51 @@ const planeMatrial = new THREE.MeshStandardMaterial({
   side: THREE.DoubleSide,
 });
 
-planeMatrial.shadowSide = THREE.DoubleSide;
+// planeMatrial.shadowSide = THREE.DoubleSide;
 const planeMesh = new THREE.Mesh(planePiece, planeMat);
 planeMesh.rotateX(-Math.PI / 2);
 planeMesh.position.y -= 0.75;
 planeMesh.receiveShadow = true;
 scene.add(planeMesh);
+
+// // Source: https://discourse.threejs.org/t/extrude-geometry-apply-texture-to-all-faces-of-the-mesh/48246
+// static applyUVsToExtrudeBufferGeometry(geometry: THREE.ExtrudeGeometry) {
+//   const MAX_X = 1,
+//     MAX_Y = 2,
+//     MAX_Z = 3;
+
+//   let uvs = [];
+//   let positions = geometry.getAttribute('position');
+//   let normals = geometry.getAttribute('normal');
+//   for (let i = 0; i < positions.count; i++) {
+//     // get the two minimal components of normal vector: XY, XZ or YZ
+//     const nx = Math.abs(normals.getX(i));
+//     const ny = Math.abs(normals.getY(i));
+//     const nz = Math.abs(normals.getZ(i));
+
+//     let max = MAX_X;
+//     if (ny >= nx && ny >= nz) max = MAX_Y;
+//     else if (nz >= nx && nz >= ny) max = MAX_Z;
+
+//     const x = positions.getX(i);
+//     const y = positions.getY(i);
+//     const z = positions.getZ(i);
+
+//     switch (max) {
+//       case MAX_X:
+//         uvs.push(y, z);
+//         break;
+//       case MAX_Y:
+//         uvs.push(x, z);
+//         break;
+//       case MAX_Z:
+//         uvs.push(x, y);
+//         break;
+//     }
+//   }
+
+//   geometry.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(uvs), 2));
+// }
 
 //#endregion
 
